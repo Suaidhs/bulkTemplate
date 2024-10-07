@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMH Message Template Generator</title>
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            margin: 0;
+            padding-top: 50px;
+            background-color: #2c2c2c; /* Darker background */
+            color: #ffffff; /* Light text color */
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+        }
+        .card {
+            background-color: #373737; /* Slightly lighter dark color */
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 200px;
+        }
+        .section-header {
+            font-size: 1.5rem;
+            color: #ffca28; /* Accent color */
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ffca28;
+            padding-bottom: 5px;
+        }
+        .input-field .material-icons.prefix {
+            color: #ffca28; /* Accent color */
+        }
+        .input-field input[type=text], .input-field input[type=date], .input-field .datepicker, .input-field select {
+            color: #ffffff;
+        }
+        .input-field input[type=text]:focus + label {
+            color: #ffca28 !important;
+        }
+        .input-field input[type=text]:focus {
+            border-bottom: 1px solid #ffca28 !important;
+            box-shadow: 0 1px 0 0 #ffca28 !important;
+        }
+        .input-field select:focus + label {
+            color: #ffca28 !important;
+        }
+        .input-field select:focus {
+            border-bottom: 1px solid #ffca28 !important;
+            box-shadow: 0 1px 0 0 #ffca28 !important;
+        }
+        .input-field .select-dropdown {
+            color: #ffffff;
+            background-color: #373737;
+        }
+        .input-field .caret {
+            border-color: #ffca28;
+        }
+        .btn-custom {
+            background-color: #ffca28; /* Accent color */
+            color: #000000 !important; /* Black text color */
+        }
+        .btn-reset {
+            background-color: #757575; /* Grey */
+            color: #000000 !important; /* Black text color */
+        }
+        .btn:hover {
+            background-color: #ffb300 !important;
+        }
+        .card-panel {
+            margin-top: 20px;
+            background-color: #424242;
+        }
+        /* Datepicker Styles */
+        .datepicker-date-display, .datepicker-modal {
+            background-color: #2e2e2e !important;
+            color: #ffffff !important;
+        }
+        .datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
+            color: #ffca28 !important;
+        }
+        .datepicker-table td.is-selected {
+            background-color: #ffca28 !important;
+        }
+        .datepicker-day-button {
+            color: #ffffff !important;
+        }
+        .datepicker-day-button.is-selected {
+            color: #000000 !important;
+        }
+        .dropdown-content {
+            background-color: #424242 !important;
+        }
+        .dropdown-content li>a, .dropdown-content li>span {
+            color: #ffffff !important;
+        }
+        .select-wrapper input.select-dropdown {
+            border-bottom: 1px solid #ffffff;
+        }
+        .select-wrapper input.select-dropdown:focus {
+            border-bottom: 1px solid #ffca28;
+        }
+        /* Hide default datepicker footer buttons */
+        .datepicker-footer {
+            display: none;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Template Display */
+        .template-display {
+            white-space: pre-wrap;
+        }
+        /* Responsive Layout for Headings */
+        .section-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+        .section-col {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 10px;
+        }
+        @media (max-width: 992px) {
+            .section-row {
+                flex-direction: column;
+            }
+            .section-col {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <!-- Logo -->
+            <div class="center-align">
+                <img src="asmh_logo.svg" alt="ASMH Logo" class="logo">
+            </div>
+
+            <h4 class="center-align">ASMH Message Template Generator</h4>
+
+            <!-- Responsive Section Headers -->
+            <div class="section-row">
+                <!-- Scenario Section -->
+                <div class="section-col">
+                    <h5 class="section-header">Scenario</h5>
+                    <div class="row">
+                        <!-- Scenario Field -->
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">event_note</i>
+                            <select id="scenario">
+                                <option value="" disabled selected>Select Scenario</option>
+                                <option value="sickLeave">Sick Leave</option>
+                                <option value="opdCanceled">OPD Canceled</option>
+                                <option value="doctorChanged">Doctor Changed</option>
+                            </select>
+                            <label for="scenario">Scenario</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Information Section -->
+                <div class="section-col">
+                    <h5 class="section-header">Doctor Information</h5>
+                    <div class="row">
+                        <!-- Who Field -->
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">person</i>
+                            <select id="who">
+                                <option value="" disabled selected>Select Doctor Type</option>
+                                <option value="gynae">Gynae</option>
+                                <option value="derma">Derma</option>
+                                <option value="paed">Paed</option>
+                                <option value="physician">Physician</option>
+                                <option value="dentist">Dentist</option>
+                                <option value="psych">Psych</option>
+                                <option value="ortho">Ortho</option>
+                                <option value="opthal">Ophthalmologist</option>
+                                <option value="surgeon">Surgeon</option>
+                            </select>
+                            <label for="who">Who</label>
+                        </div>
+
+                        <!-- Doctor Name Field -->
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">person_outline</i>
+                            <input id="doctorName" type="text">
+                            <label for="doctorName">Doctor Name</label>
+                        </div>
+
+                        <!-- Substitute Doctor Field -->
+                        <div id="substituteDoctorContainer" class="input-field col s12 hidden">
+                            <i class="material-icons prefix">person_outline</i>
+                            <input id="substituteDoctor" type="text">
+                            <label for="substituteDoctor">Substitute Doctor</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Information Section -->
+                <div class="section-col">
+                    <h5 class="section-header">Time Information</h5>
+                    <div class="row">
+                        <!-- Date Field -->
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">date_range</i>
+                            <select id="dateInput">
+                                <option value="" disabled selected>Select Date</option>
+                                <option value="today">Today</option>
+                                <option value="tomorrow">Tomorrow</option>
+                                <option value="misc">Select Miscellaneous Date</option>
+                            </select>
+                            <label for="dateInput">Date</label>
+                        </div>
+
+                        <!-- When Field -->
+                        <div class="input-field col s12" id="whenContainer">
+                            <i class="material-icons prefix">access_time</i>
+                            <select id="when">
+                                <option value="" disabled selected>Select When</option>
+                                <option value="todayMorning">Today Morning</option>
+                                <option value="todayEvening">Today Evening</option>
+                                <option value="tomorrowMorning">Tomorrow Morning</option>
+                                <option value="tomorrowEvening">Tomorrow Evening</option>
+                            </select>
+                            <label for="when">When</label>
+                        </div>
+
+                        <!-- Misc Date Picker -->
+                        <div class="input-field col s12 hidden" id="miscDateContainer">
+                            <i class="material-icons prefix">event</i>
+                            <input id="miscDate" type="text" class="datepicker" autocomplete="off">
+                            <label for="miscDate">Select Date</label>
+                        </div>
+
+                        <!-- Time of Day for Misc Date -->
+                        <div class="input-field col s12 hidden" id="miscWhenContainer">
+                            <i class="material-icons prefix">access_time</i>
+                            <select id="miscWhen">
+                                <option value="" disabled selected>Select Time of Day</option>
+                                <option value="Morning">Morning</option>
+                                <option value="Afternoon">Afternoon</option>
+                            </select>
+                            <label for="miscWhen">Time of Day</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="row center-align">
+                <button class="btn waves-effect waves-light btn-custom" onclick="copyTemplate('dhivehi')">
+                    Copy Dhivehi Template
+                    <i class="material-icons right">content_copy</i>
+                </button>
+                <button class="btn waves-effect waves-light btn-custom" onclick="copyTemplate('english')">
+                    Copy English Template
+                    <i class="material-icons right">content_copy</i>
+                </button>
+                <button class="btn waves-effect waves-light btn-reset" onclick="resetFields()">
+                    Reset
+                    <i class="material-icons right">refresh</i>
+                </button>
+            </div>
+
+            <!-- Template Display -->
+            <h5 class="section-header">Dhivehi Message</h5>
+            <div id="templateDisplayDhivehi" class="card-panel grey darken-3 white-text template-display" contenteditable="true"></div>
+
+            <h5 class="section-header">English Message</h5>
+            <div id="templateDisplayEnglish" class="card-panel grey darken-3 white-text template-display" contenteditable="true"></div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Materialize JS and initialization script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    // Initialize Materialize components
+    document.addEventListener('DOMContentLoaded', function() {
+        const elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        const dateElems = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(dateElems, { 
+            format: 'yyyy-mm-dd',
+            container: 'body',
+            onSelect: function(date) {
+                const dateString = date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+                document.getElementById('miscDate').value = dateString;
+                updateTemplate();
+            },
+            defaultDate: new Date(),
+            setDefaultDate: true,
+            theme: 'dark',
+            autoClose: true,
+            showClearBtn: true
+        });
+
+        // Add event listeners to inputs to update template automatically
+        const inputs = document.querySelectorAll('#scenario, #who, #doctorName, #substituteDoctor, #dateInput, #when, #miscWhen');
+        inputs.forEach(input => {
+            input.addEventListener('change', updateTemplate);
+        });
+
+        document.getElementById('doctorName').addEventListener('input', updateTemplate);
+        document.getElementById('substituteDoctor').addEventListener('input', updateTemplate);
+
+        // Initialize field visibility
+        toggleSubstituteDoctor();
+        setDate();
+    });
+
+    // Toggle Substitute Doctor Field
+    function toggleSubstituteDoctor() {
+        const scenario = document.getElementById('scenario').value;
+        const substituteContainer = document.getElementById('substituteDoctorContainer');
+        substituteContainer.classList.toggle('hidden', scenario !== 'doctorChanged');
+        M.updateTextFields(); // Update labels
+        updateTemplate();
+    }
+
+    // Set Date and Toggle When Field
+    function setDate() {
+        const dateInput = document.getElementById('dateInput').value;
+        const miscDateContainer = document.getElementById('miscDateContainer');
+        const whenContainer = document.getElementById('whenContainer');
+        const miscWhenContainer = document.getElementById('miscWhenContainer');
+
+        if (dateInput === "today" || dateInput === "tomorrow") {
+            miscDateContainer.classList.add('hidden');
+            miscWhenContainer.classList.add('hidden');
+            whenContainer.classList.remove('hidden');
+        } else if (dateInput === "misc") {
+            miscDateContainer.classList.remove('hidden');
+            miscWhenContainer.classList.remove('hidden');
+            whenContainer.classList.add('hidden');
+            M.FormSelect.init(document.querySelectorAll('select'));
+        } else {
+            miscDateContainer.classList.add('hidden');
+            miscWhenContainer.classList.add('hidden');
+            whenContainer.classList.add('hidden');
+        }
+        M.updateTextFields(); // Update labels
+        updateTemplate();
+    }
+
+    // Update Template Function
+    function updateTemplate() {
+        const who = document.getElementById('who').value;
+        const scenario = document.getElementById('scenario').value;
+        const when = document.getElementById('when').value;
+        const dateInput = document.getElementById('dateInput').value;
+        const miscDate = document.getElementById('miscDate').value;
+        const miscWhen = document.getElementById('miscWhen').value;
+        const doctorName = document.getElementById('doctorName').value;
+        const substituteDoctor = document.getElementById('substituteDoctor').value;
+        const templateDisplayDhivehi = document.getElementById('templateDisplayDhivehi');
+        const templateDisplayEnglish = document.getElementById('templateDisplayEnglish');
+
+        let dateValue;
+        if (dateInput === "misc") {
+            dateValue = miscDate;
+        } else if (dateInput === "today") {
+            dateValue = new Date().toISOString().split('T')[0];
+        } else if (dateInput === "tomorrow") {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateValue = tomorrow.toISOString().split('T')[0];
+        } else {
+            dateValue = '';
+        }
+
+        if (!who || !scenario || !doctorName) {
+            templateDisplayDhivehi.textContent = "Please select all options and fill in all required fields.";
+            templateDisplayEnglish.textContent = "Please select all options and fill in all required fields.";
+            return;
+        }
+
+        if (dateInput !== "misc" && !when) {
+            templateDisplayDhivehi.textContent = "Please select when.";
+            templateDisplayEnglish.textContent = "Please select when.";
+            return;
+        }
+
+        if (dateInput === "misc" && (!miscWhen || !miscDate)) {
+            templateDisplayDhivehi.textContent = "Please select date and time of day.";
+            templateDisplayEnglish.textContent = "Please select date and time of day.";
+            return;
+        }
+
+        if (scenario === "doctorChanged" && !substituteDoctor) {
+            templateDisplayDhivehi.textContent = "Please enter the substitute doctor's name.";
+            templateDisplayEnglish.textContent = "Please enter the substitute doctor's name.";
+            return;
+        }
+
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formattedDate = dateValue ? new Date(dateValue).toLocaleDateString('en-GB', options) : '';
+
+        // Generate Dhivehi Template
+        let templateDhivehi = "Assalaamu Alaikum,\n\n";
+
+        if (dateInput !== "misc") {
+            if (when === "tomorrowMorning") {
+                templateDhivehi += `(${formattedDate}) Maadhamaa`;
+            } else if (when === "tomorrowEvening") {
+                templateDhivehi += `(${formattedDate}) maadhamaa haveeru`;
+            } else {
+                templateDhivehi += `Miadhu (${formattedDate}),`;
+            }
+
+            if (when.includes('Morning')) {
+                templateDhivehi += ` hen'dhunu OPD gai innevi `;
+            } else if (when.includes('Evening')) {
+                templateDhivehi += ` haveeru OPD gai innevi `;
+            } else {
+                templateDhivehi += ` OPD gai innevi `;
+            }
+        } else {
+            templateDhivehi += `(${formattedDate}),`;
+
+            if (miscWhen === "Morning") {
+                templateDhivehi += ` hen'dhunu OPD gai innevi `;
+            } else if (miscWhen === "Afternoon") {
+                templateDhivehi += ` haveeru OPD gai innevi `;
+            }
+        }
+
+        switch (who) {
+            case 'gynae':
+                templateDhivehi += ` anhenunge khaassa doctor`;
+                break;
+            case 'paed':
+                templateDhivehi += ` Kudakudhinge khaassa doctor`;
+                break;
+            case 'derma':
+                templateDhivehi += ` hamuge khaassa doctor`;
+                break;
+            case 'dentist':
+                templateDhivehi += ` Dhathuge khaassa doctor`;
+                break;
+            case 'physician':
+                templateDhivehi += ` ethere hasheege khaassa doctor`;
+                break;
+            case 'psych':
+                templateDhivehi += ` Nafsaanee balithakuge khaassa doctor`;
+                break;
+            case 'ortho':
+                templateDhivehi += ` kasheege khaassa doctor`;
+                break;
+            case 'opthal':
+                templateDhivehi += ` loluge khaassa doctor`;
+                break;
+            case 'surgeon':
+                templateDhivehi += ` operation doctor`;
+                break;
+        }
+
+        templateDhivehi += ` [${doctorName}] `;
+
+        if (scenario === "sickLeave") {
+            templateDhivehi += `salaam bunumaai gulhigen OPD nuballavaane `;
+        } else if (scenario === "opdCanceled") {
+            templateDhivehi += `OPD nuballavaa `;
+        } else if (scenario === "doctorChanged") {
+            templateDhivehi += `ge badhalugai OPD gai ballavaanee [${substituteDoctor}] `;
+        }
+
+        templateDhivehi += `kamah mauloomaathahtakai dhenneveeme.\n\n-Shukuriyya-\nDR.ASMH`;
+
+        // Generate English Template
+        let templateEnglish = "Assalaamu Alaikum,\n\n";
+
+        // Determine date label
+        let dateLabel = "";
+        if (dateInput === "today") {
+            dateLabel = "today";
+        } else if (dateInput === "tomorrow") {
+            dateLabel = "tomorrow";
+        }
+
+        let dateString = dateLabel ? `${dateLabel} (${formattedDate})` : `(${formattedDate})`;
+
+        // Determine time of day
+        let timeOfDay = "";
+        if (dateInput !== "misc") {
+            if (when.includes('Morning')) {
+                timeOfDay = "morning";
+            } else if (when.includes('Evening')) {
+                timeOfDay = "evening";
+            }
+        } else {
+            if (miscWhen === "Morning") {
+                timeOfDay = "morning";
+            } else if (miscWhen === "Afternoon") {
+                timeOfDay = "afternoon";
+            }
+        }
+
+        // Begin constructing the English message
+        templateEnglish += `This is to inform you that your appointment ${dateString}, with the ${timeOfDay} OPD of `;
+
+        switch (who) {
+            case 'gynae':
+                templateEnglish += `Gynecologist`;
+                break;
+            case 'paed':
+                templateEnglish += `Pediatrician`;
+                break;
+            case 'derma':
+                templateEnglish += `Dermatologist`;
+                break;
+            case 'dentist':
+                templateEnglish += `Dentist`;
+                break;
+            case 'physician':
+                templateEnglish += `Physician`;
+                break;
+            case 'psych':
+                templateEnglish += `Psychiatrist`;
+                break;
+            case 'ortho':
+                templateEnglish += `Orthopedic`;
+                break;
+            case 'opthal':
+                templateEnglish += `Ophthalmologist`;
+                break;
+            case 'surgeon':
+                templateEnglish += `Surgeon`;
+                break;
+        }
+
+        templateEnglish += ` [${doctorName}] `;
+
+        if (scenario === "sickLeave") {
+            templateEnglish += `is cancelled as the doctor is on sick leave.`;
+        } else if (scenario === "opdCanceled") {
+            templateEnglish += `is cancelled.`;
+        } else if (scenario === "doctorChanged") {
+            templateEnglish += `will be conducted by [${substituteDoctor}].`;
+        }
+
+        templateEnglish += `\n\n-Thank you-\nDR.ASMH`;
+
+        // Display the templates
+        templateDisplayDhivehi.textContent = templateDhivehi;
+        templateDisplayEnglish.textContent = templateEnglish;
+    }
+
+    // Copy Template Function
+    function copyTemplate(language) {
+        let templateDisplay;
+        if (language === 'dhivehi') {
+            templateDisplay = document.getElementById('templateDisplayDhivehi');
+        } else {
+            templateDisplay = document.getElementById('templateDisplayEnglish');
+        }
+
+        navigator.clipboard.writeText(templateDisplay.textContent).then(() => {
+            M.toast({html: 'Template copied!'});
+        }).catch(err => {
+            M.toast({html: 'Failed to copy!'});
+        });
+    }
+
+    // Reset Fields Function
+    function resetFields() {
+        document.getElementById('scenario').selectedIndex = 0;
+        document.getElementById('who').selectedIndex = 0;
+        document.getElementById('doctorName').value = '';
+        document.getElementById('substituteDoctor').value = '';
+        document.getElementById('dateInput').selectedIndex = 0;
+        document.getElementById('when').selectedIndex = 0;
+        document.getElementById('miscDate').value = '';
+        document.getElementById('miscWhen').selectedIndex = 0;
+
+        M.FormSelect.init(document.querySelectorAll('select'));
+
+        document.getElementById('substituteDoctorContainer').classList.add('hidden');
+        document.getElementById('miscDateContainer').classList.add('hidden');
+        document.getElementById('miscWhenContainer').classList.add('hidden');
+        document.getElementById('whenContainer').classList.add('hidden');
+
+        document.getElementById('templateDisplayDhivehi').textContent = '';
+        document.getElementById('templateDisplayEnglish').textContent = '';
+        M.updateTextFields(); // Update labels
+    }
+
+    // Event listeners for dynamic updates
+    document.getElementById('scenario').addEventListener('change', function() {
+        toggleSubstituteDoctor();
+        updateTemplate();
+    });
+
+    document.getElementById('dateInput').addEventListener('change', function() {
+        setDate();
+        updateTemplate();
+    });
+</script>
+
+</body>
+</html>
